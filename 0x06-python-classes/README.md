@@ -1,4 +1,4 @@
-Square Class Project
+.......Square Class Project.......
 
 This project focuses on building a Python class called Square with various functionalities. Below is a brief overview of the tasks accomplished:
 My First Square
