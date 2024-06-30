@@ -1,37 +1,26 @@
-Write a script that prints all characters of a Star Wars movie:
+#!/usr/bin/node
 
-    The first argument is the Movie ID - example: 3 = “Return of the Jedi”
-    Display one character name by line
-    You must use the Star wars API
-    You must use the module request
+const request = require('request');
 
-guillaume@ubuntu:~/0x14$ ./100-starwars_characters.js 3
-Darth Vader
-R2-D2
-Luke Skywalker
-Han Solo
-Leia Organa
-Chewbacca
-Palpatine
-Obi-Wan Kenobi
-Jabba Desilijic Tiure
-Wedge Antilles
-Yoda
-Boba Fett
-Ackbar
-Arvel Crynyd
-Mon Mothma
-Nien Nunb
-Wicket Systri Warrick
-Bib Fortuna
-C-3PO
-Lando Calrissian
-guillaume@ubuntu:~/0x14$ 
+const movieId = process.argv[2];
 
-Repo:
+request(`https://swapi-api.alx-tools.com/api/films/${movieId}`, (error, response, body) => {
+  if (error) {
+    console.error(error);
+  } else {
+    const movie = JSON.parse(body);
+    const characters = movie.characters;
 
-    GitHub repository: alx-higher_level_programming
-    Directory: 0x14-javascript-web_scraping
-    File: 100-starwars_characters.js
-
+    characters.forEach(character => {
+      request(character, (error, response, body) => {
+        if (error) {
+          console.error(error);
+        } else {
+          const characterData = JSON.parse(body);
+          console.log(characterData.name);
+        }
+      });
+    });
+  }
+});
 
